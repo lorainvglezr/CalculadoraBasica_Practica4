@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Básica</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+
+        #display {
+            width: 92.5%;
+            height: 70px;
+            font-size: 50px;
+            text-align: left;
+            border: none;
+            padding: 15px;
+            border-radius: 10px 10px;
+            background-color: #f0f0f0;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        button {
+            padding: 30px;
+            font-size: 30px;
+            border: none;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #d0d0d0;
+        }
+
+        .equal {
+            grid-row: span 3;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .equal:hover {
+            background-color: #45a049;
+        }
+
+        .zero {
+            grid-column: span 3;
+        }
+        
+        .clear {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .clear:hover {
+            background-color: #e53935;
+        }
+
+        .symbols {
+            background-color: #969696;
+            color: white;
+        }
+
+        .symbols:hover {
+            background-color: #919191;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 60px;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Calculadora Básica</div>
+    <div class="subtitle">Esta calculadora únicamente puede sumar, restar, multiplicar y dividir los números que se ingresen</div>
+    <div class="calculator">
+        <input type="text" id="display" disabled placeholder="0">
+        <div class="buttons">
+            <button onclick="clearDisplay()" class="clear">C</button>
+            <button onclick="appendToDisplay('/')" class="symbols">÷</button>
+            <button onclick="appendToDisplay('*')" class="symbols">×</button>
+            <button onclick="appendToDisplay('-')" class="symbols">-</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('+')" class="symbols">+</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="calculateResult()" class="equal">=</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('0')" class="zero">0</button>
+        </div>
+    </div>
+    <script>
+        function appendToDisplay(value) {
+            const display = document.getElementById('display');
+            if (display.value === "0" && value !== '/') {
+                display.value = value;
+            } else {
+                display.value += value;
+            }
+        }
+
+        function calculateResult() {
+            const display = document.getElementById('display');
+            try {
+                display.value = eval(display.value.replace(/×/g, '*').replace(/÷/g, '/'));
+            } catch (error) {
+                display.value = "Error";
+            }
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = "0";
+        }
+    </script>
